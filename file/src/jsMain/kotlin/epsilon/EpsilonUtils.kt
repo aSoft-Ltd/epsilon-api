@@ -39,3 +39,28 @@ fun FileReader.readBytesOf(
     readAsArrayBuffer(blob)
     return later
 }
+
+fun FileReader.readBase64Url(
+    blob: Blob,
+    executor: Executor,
+    actionName: String,
+    onAbortMessage: String,
+    onErrorMessage: String
+): Later<String> {
+    val later = PendingLater<String>(executor)
+    val (reading) = later.setStages(actionName)
+    onprogress = {
+        later.updateProgress(reading(it.loaded.toLong(), it.total.toLong()))
+    }
+    onabort = {
+        later.rejectWith(IllegalStateException(onAbortMessage))
+    }
+    onerror = {
+        later.rejectWith(IllegalArgumentException(onErrorMessage))
+    }
+    onloadend = {
+        later.resolveWith(result.unsafeCast<String>())
+    }
+    readAsDataURL(blob)
+    return later
+}
