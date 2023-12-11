@@ -4,7 +4,7 @@
 package epsilon
 
 import epsilon.internal.BrowserFileReader
-import koncurrent.SetTimeoutExecutor
+import koncurrent.Executors
 
 actual class RawFileInfo actual constructor(actual val file: RawFile) {
     @Deprecated("in favour of nameWithExtension or nameWithoutExtension")
@@ -18,7 +18,7 @@ actual class RawFileInfo actual constructor(actual val file: RawFile) {
 
     actual fun path() = BrowserFileReader.native.readBase64Url(
         blob = file,
-        executor = SetTimeoutExecutor,
+        executor = Executors.default(),
         actionName = "constructing url for ${file.name}",
         onAbortMessage = "File reading of ${file.name} has been aborted",
         onErrorMessage = "Failed to read file: ${file.name}"

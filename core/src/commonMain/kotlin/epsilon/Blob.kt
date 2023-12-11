@@ -6,7 +6,7 @@ package epsilon
 import koncurrent.Executor
 import koncurrent.Executors
 import koncurrent.Later
-import kotlin.js.JsExport
+import kotlinx.JsExport
 
 @Deprecated("In favour of RawFile")
 interface Blob {

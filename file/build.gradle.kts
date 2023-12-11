@@ -21,6 +21,7 @@ kotlin {
             dependencies {
                 api(projects.epsilonApiCore)
                 api(libs.kase.core)
+                api(libs.kotlinx.exports)
             }
         }
 

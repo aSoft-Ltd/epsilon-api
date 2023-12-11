@@ -2,7 +2,7 @@
 
 package epsilon
 
-import kollections.JsExport
+import kotlinx.JsExport
 
 @Deprecated("In favour of RawFile")
 interface FileBlob : Blob {
