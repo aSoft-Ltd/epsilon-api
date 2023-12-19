@@ -6,14 +6,14 @@ package epsilon
 import epsilon.internal.FileBlobImpl
 import kase.Result
 import kollections.List
-import kollections.iEmptyList
-import kollections.toIList
+import kollections.emptyList
+import kollections.toList
 import org.w3c.dom.asList
 import org.w3c.files.File
 import org.w3c.files.FileList
 
 @Deprecated("In favour of RawFile")
-inline fun fileBlobsFrom(list: FileList?): List<FileBlob> = list?.asList()?.map { fileBlobOf(it) }?.toIList() ?: iEmptyList()
+inline fun fileBlobsFrom(list: FileList?): List<FileBlob> = list?.asList()?.map { fileBlobOf(it) }?.toList() ?: emptyList()
 
 @Deprecated("In favour of RawFile")
 inline fun fileBlobOf(file: File): FileBlob = FileBlobImpl(file)

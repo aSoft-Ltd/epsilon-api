@@ -8,6 +8,7 @@ import org.khronos.webgl.Int8Array
 import org.khronos.webgl.get
 import org.w3c.files.Blob
 import org.w3c.files.FileReader
+import kollections.component1
 
 inline fun ArrayBuffer.toByteArray(): ByteArray {
     val array = Int8Array(this)
