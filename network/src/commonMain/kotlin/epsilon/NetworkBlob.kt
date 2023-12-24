@@ -7,6 +7,12 @@ import io.ktor.client.statement.bodyAsChannel
 import io.ktor.http.contentLength
 import koncurrent.Executor
 import koncurrent.Later
+import koncurrent.later.then
+import koncurrent.later.andThen
+import koncurrent.later.andZip
+import koncurrent.later.zip
+import koncurrent.later.catch
+import koncurrent.later.then
 import koncurrent.PendingLater
 import koncurrent.later
 import kotlinx.coroutines.CoroutineScope

@@ -6,6 +6,11 @@ import epsilon.FileBlob
 import epsilon.FileNotFoundException
 import koncurrent.Executor
 import koncurrent.Later
+import koncurrent.later.then
+import koncurrent.later.andThen
+import koncurrent.later.andZip
+import koncurrent.later.zip
+import koncurrent.later.catch
 import java.io.File
 
 @PublishedApi

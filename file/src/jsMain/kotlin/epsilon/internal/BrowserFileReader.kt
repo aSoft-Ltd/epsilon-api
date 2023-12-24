@@ -4,6 +4,11 @@ import epsilon.RawFile
 import epsilon.readBytesOf
 import koncurrent.Executor
 import koncurrent.Later
+import koncurrent.later.then
+import koncurrent.later.andThen
+import koncurrent.later.andZip
+import koncurrent.later.zip
+import koncurrent.later.catch
 import org.w3c.files.FileReader
 import epsilon.FileReader as MppFileReader
 

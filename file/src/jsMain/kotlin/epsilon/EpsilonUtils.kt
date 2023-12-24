@@ -1,14 +1,18 @@
 package epsilon
 
+import kase.progress.ProgressBus
+import kase.progress.VoidProgressBus
+import kollections.component1
 import koncurrent.Executor
 import koncurrent.Later
 import koncurrent.PendingLater
+import koncurrent.rejectWith
+import koncurrent.resolveWith
 import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Int8Array
 import org.khronos.webgl.get
 import org.w3c.files.Blob
 import org.w3c.files.FileReader
-import kollections.component1
 
 inline fun ArrayBuffer.toByteArray(): ByteArray {
     val array = Int8Array(this)
@@ -16,6 +20,7 @@ inline fun ArrayBuffer.toByteArray(): ByteArray {
 }
 
 fun FileReader.readBytesOf(
+    bus: ProgressBus = VoidProgressBus,
     blob: Blob,
     executor: Executor,
     actionName: String,
@@ -23,9 +28,9 @@ fun FileReader.readBytesOf(
     onErrorMessage: String
 ): Later<ByteArray> {
     val later = PendingLater<ByteArray>(executor)
-    val (reading) = later.setStages(actionName)
+    val (reading) = bus.setStages(actionName)
     onprogress = {
-        later.updateProgress(reading(it.loaded.toLong(), it.total.toLong()))
+        bus.updateProgress(reading(it.loaded.toLong(), it.total.toLong()))
     }
     onabort = {
         later.rejectWith(IllegalStateException(onAbortMessage))
@@ -42,6 +47,7 @@ fun FileReader.readBytesOf(
 }
 
 fun FileReader.readBase64Url(
+    bus: ProgressBus = VoidProgressBus,
     blob: Blob,
     executor: Executor,
     actionName: String,
@@ -49,9 +55,9 @@ fun FileReader.readBase64Url(
     onErrorMessage: String
 ): Later<String> {
     val later = PendingLater<String>(executor)
-    val (reading) = later.setStages(actionName)
+    val (reading) = bus.setStages(actionName)
     onprogress = {
-        later.updateProgress(reading(it.loaded.toLong(), it.total.toLong()))
+        bus.updateProgress(reading(it.loaded.toLong(), it.total.toLong()))
     }
     onabort = {
         later.rejectWith(IllegalStateException(onAbortMessage))
