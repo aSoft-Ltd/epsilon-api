@@ -46,7 +46,7 @@ fun FileReader.readBytesOf(
     return later
 }
 
-fun FileReader.readBase64Url(
+fun FileReader.readDataUrl(
     bus: ProgressBus = VoidProgressBus,
     blob: Blob,
     executor: Executor,

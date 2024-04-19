@@ -4,7 +4,6 @@
 package epsilon
 
 import epsilon.internal.BrowserFileReader
-import epsilon.RawFile
 import koncurrent.Executors
 import koncurrent.Later
 
@@ -19,7 +18,7 @@ actual class RawFileInfo actual constructor(actual val file: RawFile) {
     actual val extension by lazy { file.name.substringAfterLast(".") }
 
     actual fun path() = paths.getOrPut(file) {
-        BrowserFileReader.native.readBase64Url(
+        BrowserFileReader().reader.readDataUrl(
             blob = file,
             executor = Executors.default(),
             actionName = "constructing url for ${file.name}",
