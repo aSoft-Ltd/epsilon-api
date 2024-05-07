@@ -19,4 +19,4 @@ listOf(
 
 rootProject.name = "epsilon-api"
 
-includeSubs("epsilon", ".", "core", "file", "fake", "network")
+includeSubs("epsilon", ".", "core")
