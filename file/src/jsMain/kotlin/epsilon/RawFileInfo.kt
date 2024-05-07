@@ -3,11 +3,8 @@
 
 package epsilon
 
-import epsilon.internal.BrowserFileReader
-import koncurrent.Executors
 import koncurrent.Later
 import koncurrent.toLater
-import kotlinx.browser.window
 import org.w3c.dom.url.URL
 
 actual class RawFileInfo actual constructor(actual val file: RawFile) {
@@ -20,6 +17,16 @@ actual class RawFileInfo actual constructor(actual val file: RawFile) {
 
     actual val extension by lazy { file.name.substringAfterLast(".") }
 
+    private var uri: String? = null
+
+    actual val url: String
+        get() {
+            if (uri == null) {
+                uri = URL.createObjectURL(file)
+            }
+            return uri!!
+        }
+
     actual fun path() = paths.getOrPut(file) {
         URL.createObjectURL(file).toLater()
 //        BrowserFileReader().reader.readDataUrl(
@@ -29,6 +36,10 @@ actual class RawFileInfo actual constructor(actual val file: RawFile) {
 //            onAbortMessage = "File reading of ${file.name} has been aborted",
 //            onErrorMessage = "Failed to read file: ${file.name}"
 //        )
+    }
+
+    actual fun dispose() {
+        uri?.let { URL.revokeObjectURL(it) }
     }
 
     private companion object {

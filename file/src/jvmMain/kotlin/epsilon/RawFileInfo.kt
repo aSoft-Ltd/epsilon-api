@@ -16,5 +16,10 @@ actual class RawFileInfo actual constructor(actual val file: RawFile) {
     actual val nameWithExtension by lazy { file.name }
 
     actual val extension by lazy { file.extension }
+
+    actual val url: String by lazy { file.absolutePath }
+
     actual fun path() = Later(file.absolutePath)
+
+    actual fun dispose() {}
 }

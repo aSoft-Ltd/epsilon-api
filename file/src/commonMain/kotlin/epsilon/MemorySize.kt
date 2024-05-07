@@ -36,7 +36,7 @@ data class MemorySize(
 
     fun toBytes(): MemorySize {
         if (unit == Bytes) return this
-        return MemorySize(value, multiplier, Bytes)
+        return MemorySize(value / 8, multiplier, Bytes)
     }
 
     fun toBits(): MemorySize {

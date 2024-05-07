@@ -9,5 +9,10 @@ expect class RawFileInfo(file: RawFile) {
     val nameWithExtension: String
     val nameWithoutExtension: String
     val extension: String
+    val url: String
+
+    @Deprecated("In favour of url")
     fun path(): Later<String>
+
+    fun dispose()
 }

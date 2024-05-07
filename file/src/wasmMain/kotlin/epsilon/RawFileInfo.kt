@@ -11,5 +11,10 @@ actual class RawFileInfo actual constructor(actual val file: RawFile) {
     actual val nameWithExtension: String get() = throw Throwable("Not implemented")
 
     actual val extension: String get() = throw Throwable("Not implemented")
+
+    actual val url: String get() = throw Throwable("Not implemented")
+
+    actual fun dispose() : Unit = throw Throwable("Not implemented")
+
     actual fun path() : Later<String> = throw Throwable("Not implemented")
 }

@@ -14,9 +14,9 @@ class MemorySizeSerializationTest {
         val size = memorySizeOrNull("1 GB")
         val json = Json.encodeToString(size)
         val deserialized = Json.decodeFromString<MemorySize>(json)
-        expect(deserialized.unit).toBe(MemoryUnit.Bytes)
         expect(deserialized.value).toBe(1.0)
         expect(deserialized.multiplier).toBe(Multiplier.Giga)
+        expect(deserialized.unit).toBe(MemoryUnit.Bytes)
         expect(size).toBe(deserialized)
     }
 
@@ -25,9 +25,9 @@ class MemorySizeSerializationTest {
         val size = memorySizeOrNull("3b")
         val json = Json.encodeToString(size)
         val deserialized = Json.decodeFromString<MemorySize>(json)
-        expect(deserialized.unit).toBe(MemoryUnit.Bits)
         expect(deserialized.value).toBe(3.0)
         expect(deserialized.multiplier).toBe(Multiplier.Unit)
+        expect(deserialized.unit).toBe(MemoryUnit.Bits)
         expect(size).toBe(deserialized)
     }
 }
