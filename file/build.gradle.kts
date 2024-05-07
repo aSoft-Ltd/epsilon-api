@@ -28,7 +28,8 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                api(libs.koncurrent.later.test)
+                implementation(libs.koncurrent.later.test)
+                implementation(kotlinx.serialization.json)
                 implementation(libs.kommander.coroutines)
             }
         }

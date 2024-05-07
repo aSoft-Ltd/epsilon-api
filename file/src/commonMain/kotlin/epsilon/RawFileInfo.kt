@@ -1,7 +1,6 @@
 package epsilon
 
 import koncurrent.Later
-import epsilon.RawFile
 
 expect class RawFileInfo(file: RawFile) {
     val file: RawFile
