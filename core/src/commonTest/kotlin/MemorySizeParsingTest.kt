@@ -11,6 +11,14 @@ import kotlin.test.Test
 class MemorySizeParsingTest {
 
     @Test
+    fun should_be_able_to_parse_memory_with_exponents() {
+        val size = memorySize("1.0174706E7B")
+        expect(size.value).toBe(1.0174706E7)
+        expect(size.unit).toBe(MemoryUnit.Bytes)
+        expect(size.multiplier).toBe(Multiplier.Unit)
+    }
+
+    @Test
     fun should_be_able_to_get_the_memory_size_from_a_string() {
         val size = memorySizeOrNull("1 GB")
         expect(size?.value).toBe(1.0)
@@ -37,12 +45,12 @@ class MemorySizeParsingTest {
     @Test
     fun should_be_able_to_convert_the_memory_size_to_a_string() {
         val size = MemorySize(1.5, Multiplier.Kilo, MemoryUnit.Bytes)
-        expect(size.toString()).toBe("1.5KB")
+        expect(size.toString()).toBe("1.5 KB")
     }
 
     @Test
     fun should_strip_down_the_zeros_from_the_string_presentation() {
         val size = MemorySize(1.0, Multiplier.Giga, MemoryUnit.Bits)
-        expect(size.toString()).toBe("1Gb")
+        expect(size.toString()).toBe("1 Gb")
     }
 }

@@ -22,6 +22,7 @@ private fun String.toValidNumber(): Double {
         raw += when (val char = this[index]) {
             in '0'..'9' -> char
             '.' -> char
+            in listOf('E', 'e') -> char
             else -> break
         }
     }

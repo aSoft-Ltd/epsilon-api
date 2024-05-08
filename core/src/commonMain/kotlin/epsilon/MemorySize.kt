@@ -6,6 +6,7 @@ import epsilon.MemoryUnit.*
 import epsilon.serializers.MemorySizeSerializer
 import kotlinx.JsExport
 import kotlinx.serialization.Serializable
+import kotlin.math.round
 
 @Serializable(with = MemorySizeSerializer::class)
 data class MemorySize(
@@ -13,7 +14,7 @@ data class MemorySize(
     val multiplier: Multiplier,
     val unit: MemoryUnit
 ) {
-    override fun toString() = "${value.toString().removeSuffix(".0")}${multiplier}${unit}"
+    override fun toString() = "${value.toString().removeSuffix(".0")} ${multiplier}${unit}"
 
     private val convertor by lazy {
         when (unit) {
@@ -28,7 +29,7 @@ data class MemorySize(
         for (multiplier in multipliers) {
             best = convertor(value, this.multiplier, multiplier)
             if (best >= 1) {
-                return MemorySize(best, multiplier, unit)
+                return MemorySize(round(best * 100) / 100, multiplier, unit)
             }
         }
         return this
