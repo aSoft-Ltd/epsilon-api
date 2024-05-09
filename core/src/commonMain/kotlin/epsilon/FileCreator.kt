@@ -1,6 +1,7 @@
 package epsilon
 
 interface FileCreator {
+
     fun binary(
         content: ByteArray = byteArrayOf(),
         name: String = "file.bin",

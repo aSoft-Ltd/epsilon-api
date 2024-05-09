@@ -1,17 +1,25 @@
 package epsilon
 
+import io.ktor.client.HttpClient
 import koncurrent.Executor
 import koncurrent.Later
 import koncurrent.later.then
 import koncurrent.toLater
+import kotlinx.coroutines.CoroutineScope
 import java.awt.Desktop
 import java.io.File
 
 internal class JvmFileManager(
     private val tmp: String = System.getProperty("java.io.tmpdir") ?: "/tmp",
-    private val download: String = (System.getenv("HOME") ?: "/tmp") + "/Downloads"
+    private val download: String = (System.getenv("HOME") ?: "/tmp") + "/Downloads",
+    private val scope: CoroutineScope,
+    private val http: HttpClient
 ) : FileManager {
     override val create by lazy { JvmFileCreator(tmp) }
+
+    private val downloader by lazy { CoroutineFileDownloader(scope, http, create) }
+
+    override fun download(url: String, name: String?, headers: Map<String, String>) = downloader.download(url, name, headers)
 
     override fun open(url: String): Later<String> = url.toLater().then {
         Desktop.getDesktop().open(File(url))
