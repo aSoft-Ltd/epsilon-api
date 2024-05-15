@@ -23,6 +23,18 @@ data class MemorySize(
         }
     }
 
+    operator fun minus(other: MemorySize): MemorySize {
+        val lhs = this
+        val rhs = other.to(lhs.unit).to(lhs.multiplier)
+        return MemorySize(lhs.value - rhs.value, lhs.multiplier, lhs.unit)
+    }
+
+    operator fun div(other: MemorySize): Double {
+        val num = this
+        val den = other.to(num.unit).to(num.multiplier)
+        return num.value / den.value
+    }
+
     fun toBestSize(): MemorySize {
         val multipliers = Multiplier.values().reversed()
         var best: Double
@@ -43,6 +55,11 @@ data class MemorySize(
     fun toBits(): MemorySize {
         if (unit == Bits) return this
         return MemorySize(value * 8, multiplier, Bits)
+    }
+
+    fun to(unit: MemoryUnit): MemorySize = when (unit) {
+        Bits -> toBits()
+        Bytes -> toBytes()
     }
 
     fun to(unit: Multiplier): MemorySize {
