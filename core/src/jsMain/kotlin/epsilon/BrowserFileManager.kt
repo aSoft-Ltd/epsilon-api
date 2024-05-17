@@ -10,6 +10,7 @@ import kotlinx.browser.window
 import org.w3c.dom.HTMLAnchorElement
 import org.w3c.fetch.RequestInit
 import org.w3c.files.FileReader
+import status.Progress
 import kotlin.js.json
 
 class BrowserFileManager : FileManager {
@@ -48,11 +49,12 @@ class BrowserFileManager : FileManager {
 
 
     private val reader: FileReader = FileReader()
-    override fun read(file: RawFile, executor: Executor): Later<ByteArray> = reader.readBytesOf(
+
+    override fun read(file: RawFile, executor: Executor, onProgress: ((Progress<MemorySize>) -> Unit)?): Later<ByteArray> = reader.readBytesOf(
         blob = file,
         executor = executor,
-        actionName = "Reading ${file.name}",
         onAbortMessage = "File reading of ${file.name} has been aborted",
-        onErrorMessage = "Failed to read file: ${file.name}"
+        onErrorMessage = "Failed to read file: ${file.name}",
+        onProgress = onProgress
     )
 }

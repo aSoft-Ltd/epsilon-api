@@ -24,6 +24,7 @@ kotlin {
                 api(ktor.client.core)
                 api(libs.kase.core)
                 api(libs.kotlinx.exports)
+                api(libs.status.core)
             }
         }
 

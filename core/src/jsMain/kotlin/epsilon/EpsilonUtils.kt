@@ -13,6 +13,7 @@ import org.khronos.webgl.Int8Array
 import org.khronos.webgl.get
 import org.w3c.files.Blob
 import org.w3c.files.FileReader
+import status.Progress
 
 inline fun ArrayBuffer.toByteArray(): ByteArray {
     val array = Int8Array(this)
@@ -31,6 +32,31 @@ fun FileReader.readBytesOf(
     val (reading) = bus.setStages(actionName)
     onprogress = {
         bus.updateProgress(reading(it.loaded.toLong(), it.total.toLong()))
+    }
+    onabort = {
+        later.rejectWith(IllegalStateException(onAbortMessage))
+    }
+    onerror = {
+        later.rejectWith(IllegalArgumentException(onErrorMessage))
+    }
+    onloadend = {
+        val result = result.unsafeCast<ArrayBuffer>()
+        later.resolveWith(result.toByteArray())
+    }
+    readAsArrayBuffer(blob)
+    return later
+}
+
+fun FileReader.readBytesOf(
+    blob: Blob,
+    executor: Executor,
+    onAbortMessage: String,
+    onErrorMessage: String,
+    onProgress: ((Progress<MemorySize>) -> Unit)?
+): Later<ByteArray> {
+    val later = PendingLater<ByteArray>(executor)
+    onprogress = {
+        onProgress?.invoke(Progress(it.loaded.bytes,it.total.bytes))
     }
     onabort = {
         later.rejectWith(IllegalStateException(onAbortMessage))

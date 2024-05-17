@@ -1,10 +1,12 @@
 package epsilon.internal
 
 import epsilon.FileManager
+import epsilon.MemorySize
 import epsilon.RawFile
 import koncurrent.Executor
 import koncurrent.Later
 import koncurrent.TODOLater
+import status.Progress
 
 internal class UnImplementedFileManager : FileManager {
 
@@ -16,5 +18,5 @@ internal class UnImplementedFileManager : FileManager {
 
     override fun save(url: String, name: String?): Later<String> = TODOLater()
 
-    override fun read(file: RawFile, executor: Executor): Later<ByteArray>  = TODOLater()
+    override fun read(file: RawFile, executor: Executor, onProgress: ((Progress<MemorySize>) -> Unit)?): Later<ByteArray> = TODOLater()
 }

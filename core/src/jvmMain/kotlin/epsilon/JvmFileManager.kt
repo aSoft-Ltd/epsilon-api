@@ -6,6 +6,7 @@ import koncurrent.Later
 import koncurrent.later.then
 import koncurrent.toLater
 import kotlinx.coroutines.CoroutineScope
+import status.Progress
 import java.awt.Desktop
 import java.io.File
 
@@ -32,9 +33,12 @@ internal class JvmFileManager(
         dst
     }.then { it.absolutePath }
 
-    override fun read(file: RawFile, executor: Executor): Later<ByteArray> = Later(executor) { resolve, reject ->
+    override fun read(file: RawFile, executor: Executor, onProgress: ((Progress<MemorySize>) -> Unit)?): Later<ByteArray> = Later(executor) { resolve, reject ->
         try {
+            val total = file.length().bytes
+            onProgress?.invoke(Progress(0.bytes, total))
             resolve(file.readBytes())
+            onProgress?.invoke(Progress(total, total))
         } catch (err: Throwable) {
             reject(err)
         }

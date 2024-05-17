@@ -16,6 +16,8 @@ fun memorySizeOrNull(text: String?): MemorySize? = try {
     null
 }
 
+val Number.bytes get() = MemorySize(toDouble(), Multiplier.Unit, MemoryUnit.Bytes)
+
 private fun String.toValidNumber(): Double {
     var raw = ""
     for (index in indices) {
