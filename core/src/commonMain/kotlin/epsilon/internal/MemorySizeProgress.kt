@@ -13,7 +13,7 @@ internal class MemorySizeProgress(
     override val left by lazy { total - done }
     override val fraction by lazy {
         if (total.value == 0.0) return@lazy ProgressionSplit(0.0, 1.0)
-        val value = done / total
+        val value = (done / total).rounded()
         ProgressionSplit(value, 1 - value)
     }
 
