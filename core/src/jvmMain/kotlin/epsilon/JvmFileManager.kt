@@ -6,6 +6,7 @@ import koncurrent.Later
 import koncurrent.later.then
 import koncurrent.toLater
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import status.Progress
 import java.awt.Desktop
 import java.io.File
@@ -13,8 +14,8 @@ import java.io.File
 internal class JvmFileManager(
     private val tmp: String = System.getProperty("java.io.tmpdir") ?: "/tmp",
     private val download: String = (System.getenv("HOME") ?: "/tmp") + "/Downloads",
-    private val scope: CoroutineScope,
-    private val http: HttpClient
+    private val scope: CoroutineScope = GlobalScope,
+    private val http: HttpClient = HttpClient {  }
 ) : FileManager {
     override val create by lazy { JvmFileCreator(tmp) }
 
