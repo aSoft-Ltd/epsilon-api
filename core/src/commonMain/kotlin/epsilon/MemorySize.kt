@@ -5,6 +5,7 @@ package epsilon
 import epsilon.MemoryUnit.*
 import epsilon.serializers.MemorySizeSerializer
 import kotlinx.JsExport
+import kotlinx.JsName
 import kotlinx.serialization.Serializable
 import kotlin.math.round
 
@@ -62,6 +63,7 @@ data class MemorySize(
         Bytes -> toBytes()
     }
 
+    @JsName(name = "toMult")
     fun to(unit: Multiplier): MemorySize {
         val v = convertor(value, this.multiplier, unit)
         return MemorySize(v, unit, this.unit)
