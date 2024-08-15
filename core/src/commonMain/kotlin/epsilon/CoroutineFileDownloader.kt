@@ -5,6 +5,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsChannel
+import io.ktor.util.*
 import io.ktor.utils.io.*
 import koncurrent.Later
 import koncurrent.later
