@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 
@@ -43,6 +44,10 @@ kotlin {
             dependsOn(commonMain)
         }
 
+        if (Targeting.JVM) jvmTest.dependencies {
+            implementation(kotlin("test-junit5"))
+        }
+
         if (Targeting.WASM) {
             val wasmJsMain by getting {
                 dependsOn(wasmMain)
@@ -62,7 +67,7 @@ kotlin {
     }
 }
 
-rootProject.the<NodeJsRootExtension>().apply {
+rootProject.the<NodeJsEnvSpec>().apply {
     version = npm.versions.node.version.get()
     downloadBaseUrl = npm.versions.node.url.get()
 }
