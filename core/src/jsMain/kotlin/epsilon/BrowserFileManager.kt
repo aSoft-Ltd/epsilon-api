@@ -3,7 +3,7 @@ package epsilon
 import epsilon.internal.filename
 import koncurrent.Executor
 import koncurrent.Later
-import koncurrent.later.then
+import koncurrent.awaited.then
 import koncurrent.toLater
 import kotlinx.browser.document
 import kotlinx.browser.window

@@ -6,8 +6,8 @@ import kollections.component1
 import koncurrent.Executor
 import koncurrent.Later
 import koncurrent.PendingLater
-import koncurrent.rejectWith
-import koncurrent.resolveWith
+
+
 import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Int8Array
 import org.khronos.webgl.get

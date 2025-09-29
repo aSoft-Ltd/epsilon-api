@@ -3,7 +3,7 @@ package epsilon
 import io.ktor.client.HttpClient
 import koncurrent.Executor
 import koncurrent.Later
-import koncurrent.later.then
+import koncurrent.awaited.then
 import koncurrent.toLater
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope

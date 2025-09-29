@@ -6,11 +6,11 @@ import epsilon.RawFileInfo
 import koncurrent.Executor
 import koncurrent.Later
 import koncurrent.SynchronousExecutor
-import koncurrent.later.then
-import koncurrent.later.andThen
-import koncurrent.later.andZip
-import koncurrent.later.zip
-import koncurrent.later.catch
+import koncurrent.awaited.then
+import koncurrent.awaited.andThen
+import koncurrent.awaited.andZip
+import koncurrent.awaited.zip
+import koncurrent.awaited.catch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.newSingleThreadContext
